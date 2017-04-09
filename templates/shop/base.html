@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Oliver Shop{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <a href="/" class="logo">Oliver Shop</a>
+    </div>
+    <div id="subheader">
+        <div class="cart">
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                  Váš košík:
+                  <a href="{%  url "cart:cart_detail" %}">
+                      {{ total_items }} polož{{ total_items|pluralize:"ka,iek" }},
+                      {{ cart.get_total_price }}€
+                  </a>
+                {% else %}
+                  Váš košík je prázdny.
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <div id="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+</body>
+</html>
